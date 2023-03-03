@@ -14,7 +14,7 @@ run `datashack plan/apply` to see the actual changes or actually applying them t
 
 creates this pipeline:
 
-![Tux, the Linux mascot](./md/aws1.png)
+![Tux, the Linux mascot](https://raw.githubusercontent.com/datashack-dev/datashack-sdk/main/md/aws1.png)
 
 - Provision Kinesis+Spark+Glue+Iam
 - Automate schema evolution
@@ -50,3 +50,17 @@ datashack plan ./datashack-sdk-examples/my_app/models
 We are working on a fully funcional beta with many more features. Join here so we can ping you 
 
 https://www.datashack.dev/stay-in-touch
+
+
+
+## Roadmap
+
+- Additional AWS services
+- Additional data sources and sinks, such as Apache Kafka or Elasticsearch
+- 3rd Party sources - Google Analytics, Salesforce ...
+- Spark based transformation and processing capabilities
+- Integration with CICD workflows
+- Integration with runtime applications
+- Testing
+- Automatic documentation generation
+- More languages support for Datashack SDK: Go, Java, Yaml
