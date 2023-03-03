@@ -1,0 +1,13 @@
+{
+  "version": "0.14.3",
+  "stacks": {
+    "glue_Tables_stack": {
+      "name": "glue_Tables_stack",
+      "constructPath": "glue_Tables_stack",
+      "workingDirectory": "stacks/glue_Tables_stack",
+      "synthesizedStackPath": "stacks/glue_Tables_stack/cdk.tf.json",
+      "annotations": [],
+      "dependencies": []
+    }
+  }
+}

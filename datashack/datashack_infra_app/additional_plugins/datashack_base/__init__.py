@@ -1,0 +1,1 @@
+from .datashack_base import DatashackPlugin, DatashackResourceConf, DatashackResourceOutputs

@@ -1,0 +1,18 @@
+{
+  "language": "python",
+  "projectId": "37afb523-dfe2-4fb8-af8c-0ff1e79cbb45",
+  "app": "python main.py",
+  "sendCrashReports": "false",
+  "terraformProviders": [],
+  "terraformModules": [
+    {
+      "name": "datashack_tf_module",
+      "source": "./additional_plugins/datashack_tf_module"
+    }
+  ],
+  "codeMakerOutput": "imports",
+  "context": {
+    "excludeStackIdFromLogicalIds": "true",
+    "allowSepCharsInLogicalIds": "true"
+  }
+}
