@@ -4,7 +4,10 @@
 Create AWS big data streaming pipeline with Datashack sdk. 
 For example:
 ```python
+from datashack_sdk import StreamingTable, Column
+
 Users = StreamingTable("users")
+
 Users['id'] = Column('string')
 Users['age'] = Column('int')
 Users['name'] = Column('string')
@@ -27,13 +30,13 @@ To work with this project, you will need to have the following software installe
 
 - **Node.js**: You can download and install Node.js from the official website: [https://nodejs.org/en/download/](https://nodejs.org/en/download/)
 - **Python**: You can download and install Python from the official website: [https://www.python.org/downloads/](https://www.python.org/downloads/)
-- **Terraform and CDKTF**: These tools are used for defining infrastructure as code. To install them, follow the instructions on the HashiCorp website: [https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli). Additionally, you can install the CDKTF CLI by running the following command: 
+- **Terraform**: These tools are used for defining infrastructure as code. To install them, follow the instructions on the HashiCorp website: [https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli). 
+- **CDKTF**: you can install the CDKTF CLI by running the following command: 
 
     ```
     npm install --global cdktf-cli@latest
     ```
-
-Make sure to run this command in your terminal or command prompt.
+- **AWS Account**: create an AWS account if you don't have one and configure your local computer aws configuration with `aws config` - https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html
 
 ## Getting Started
 
@@ -44,13 +47,6 @@ pip install datashack-sdk
 git clone https://github.com/datashack-dev/datashack-sdk-examples
 datashack plan ./datashack-sdk-examples/my_app/models
 ```
-
-## Stay tuned
-
-We are working on a fully funcional beta with many more features. Join here so we can ping you 
-
-https://www.datashack.dev/stay-in-touch
-
 
 
 ## Roadmap
@@ -64,3 +60,12 @@ https://www.datashack.dev/stay-in-touch
 - Testing
 - Automatic documentation generation
 - More languages support for Datashack SDK: Go, Java, Yaml
+
+
+## Stay tuned
+
+We are working on a fully funcional beta with many more features. Join here so we can ping you 
+
+https://www.datashack.dev/stay-in-touch
+
+

@@ -1,0 +1,61 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+
+            "name": "oss - ds plan",
+            "type": "python",
+            "request": "launch",
+            "module": "datashack.cli",
+            "justMyCode": true,
+            "args": ["plan", "./my_app/models", "--env", "test"],
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}",
+              } 
+        },
+        {
+
+            "name": "oss - ds apply",
+            "type": "python",
+            "request": "launch",
+            "module": "datashack.cli",
+            "justMyCode": true,
+            "args": ["apply", "./my_app/models", "--env", "dev"],
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}",
+              } 
+        },
+        {
+
+            "name": "oss - ds destory",
+            "type": "python",
+            "request": "launch",
+            "module": "datashack.cli",
+            "justMyCode": true,
+            "args": ["destory", "./my_app/models", "--env", "dev"],
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}",
+              } 
+        },
+        {
+            "name": "oss - cdktf synth",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "justMyCode": true,
+            "args": [],
+            "cwd": "${workspaceFolder}/datashack/datashack_infra_app/",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}/datashack/datashack_infra_app",
+              } 
+        },
+        
+    ]
+}

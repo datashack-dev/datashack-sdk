@@ -1,7 +1,7 @@
 import os
 import setuptools
 
-version = "0.0.6"
+version = "0.0.10"
 
 # read the contents of your README file
 with open('./README.md') as f:
@@ -16,8 +16,7 @@ setuptools.setup(
     # other arguments omitted
     long_description=long_description,
     long_description_content_type='text/markdown',
-    package_dir={'datashack': 'datashack', 'datashack_sdk': 'sdk/py/datashack_sdk'},
-    packages=["datashack", "datashack_sdk"],
+    packages=["datashack", "datashack_sdk_py"],
     include_package_data=True,
     classifiers=[
     ],
