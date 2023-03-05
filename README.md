@@ -36,6 +36,8 @@ creates this pipeline:
 
 To work with this project, you will need to have the following software installed on your machine:
 
+- Windows 10, macOS 10.13 or later, or a modern Linux distribution
+- 4GB of RAM (8GB recommended)
 - **Node.js**: You can download and install Node.js from the official website: [https://nodejs.org/en/download/](https://nodejs.org/en/download/)
 - **Python**: You can download and install Python from the official website: [https://www.python.org/downloads/](https://www.python.org/downloads/)
 - **Terraform**: These tools are used for defining infrastructure as code. To install them, follow the instructions on the HashiCorp website: [https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli). 
