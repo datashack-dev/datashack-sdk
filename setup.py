@@ -1,7 +1,7 @@
 import os
 import setuptools
 
-version = "0.0.12"
+version = "0.0.14"
 
 # read the contents of your README file
 with open('./README.md') as f:

@@ -33,12 +33,12 @@
         },
         {
 
-            "name": "oss - ds destory",
+            "name": "oss - ds destroy",
             "type": "python",
             "request": "launch",
             "module": "datashack.cli",
             "justMyCode": true,
-            "args": ["destory", "/Users/admin/workspace/datashack-sdk-examples/py_my_app/models", "--env", "dev"],
+            "args": ["destroy", "/Users/admin/workspace/datashack-sdk-examples/py_my_app/models", "--env", "dev"],
             "cwd": "${workspaceFolder}",
             "env": {
                 "PYTHONPATH": "${workspaceFolder}",

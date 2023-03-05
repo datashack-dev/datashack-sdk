@@ -96,7 +96,7 @@ def apply(settings, src_folder: str, env: str):
 @click.argument('src_folder')
 @click.option('--env', default='dev')
 @click_pass_settings
-def destory(settings, src_folder: str, env: str):
+def destroy(settings, src_folder: str, env: str):
     """
     destroy infrastructure
     """

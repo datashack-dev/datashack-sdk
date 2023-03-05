@@ -1,4 +1,4 @@
 
-from .stubs import apply, destory, plan
+from .stubs import apply, destroy, plan
 
-__all__ = ['apply', 'destory', 'plan']
+__all__ = ['apply', 'destroy', 'plan']

@@ -17,7 +17,7 @@ def cli():
 # cli.add_command(commands.groups.generate)
 cli.add_command(commands.apply)
 cli.add_command(commands.plan)
-cli.add_command(commands.destory)
+cli.add_command(commands.destroy)
 
 def main():
     cli()
