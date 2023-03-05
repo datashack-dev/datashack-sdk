@@ -12,7 +12,7 @@
             "request": "launch",
             "module": "datashack.cli",
             "justMyCode": true,
-            "args": ["plan", "./my_app/models", "--env", "test"],
+            "args": ["plan", "/Users/admin/workspace/datashack-sdk-examples/py_my_app/models", "--env", "test"],
             "cwd": "${workspaceFolder}",
             "env": {
                 "PYTHONPATH": "${workspaceFolder}",
@@ -25,7 +25,7 @@
             "request": "launch",
             "module": "datashack.cli",
             "justMyCode": true,
-            "args": ["apply", "./my_app/models", "--env", "dev"],
+            "args": ["apply", "/Users/admin/workspace/datashack-sdk-examples/py_my_app/models", "--env", "dev"],
             "cwd": "${workspaceFolder}",
             "env": {
                 "PYTHONPATH": "${workspaceFolder}",
@@ -38,7 +38,7 @@
             "request": "launch",
             "module": "datashack.cli",
             "justMyCode": true,
-            "args": ["destory", "./my_app/models", "--env", "dev"],
+            "args": ["destory", "/Users/admin/workspace/datashack-sdk-examples/py_my_app/models", "--env", "dev"],
             "cwd": "${workspaceFolder}",
             "env": {
                 "PYTHONPATH": "${workspaceFolder}",

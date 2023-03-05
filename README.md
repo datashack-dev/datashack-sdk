@@ -4,7 +4,7 @@
 Create AWS big data streaming pipeline with Datashack sdk. 
 For example:
 ```python
-from datashack_sdk import StreamingTable, Column
+from datashack_sdk_py import StreamingTable, Column
 
 Users = StreamingTable("users")
 

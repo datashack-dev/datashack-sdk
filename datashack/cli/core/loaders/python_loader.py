@@ -1,7 +1,7 @@
 from .base import Loader
 
 from datashack.utils.py import dynamic_load_classes
-from datashack_sdk import DatashackSdk
+from datashack_sdk_py import DatashackSdk
 
 
 class PyLoader(Loader):

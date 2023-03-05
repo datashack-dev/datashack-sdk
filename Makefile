@@ -5,7 +5,7 @@ clean:
 	rm -rf build dist datashack.egg-info sdk/py/datashack_sdk.egg-info
 
 build: clean
-	python setup.py bdist_wheel
+	python setup.py sdist
 
 upload:
 	python -m twine upload dist/*
