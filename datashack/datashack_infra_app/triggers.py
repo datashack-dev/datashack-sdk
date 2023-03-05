@@ -22,18 +22,14 @@ def clean_stdout(stdout):
     
     return stdout.replace('\u001b[2K', '').replace('\u001b[1A', '').replace('\u001b[G', '').replace('Synthesizing\n', '').replace('\n ', '.')
 
-def apply_imported_packages(account_id: str, env_id: str, resources: List, on_stdout_update=None, output_dir=None, plan=True):
+def apply_imported_packages(account_id: str, env_id: str, resources_output_file: str, on_stdout_update=None, output_dir=None, plan=True):
     # remove me
     # return {}
 
     _move_to_this_dir()
     
-    cdktf_input = json.dumps({
-            'env_id': env_id,
-            'resources': resources
-        }).replace('\'', '\\\'')
     py_interp = sys.executable
-    app_command = f'{py_interp} main.py \'{cdktf_input}\''
+    app_command = f'{py_interp} main.py {env_id} {resources_output_file}'
     
 
     output_dir = output_dir or '.'
@@ -41,7 +37,7 @@ def apply_imported_packages(account_id: str, env_id: str, resources: List, on_st
 
     with tempfile.NamedTemporaryFile() as f:
         my_env = os.environ.copy()
-        process = subprocess.Popen(["cdktf", "plan" if plan else "deploy", env_id, "--auto-approve", 
+        process = subprocess.Popen([shutil.which("cdktf"), "plan" if plan else "deploy", env_id, "--auto-approve", 
                                     "--app", app_command,
                                     '--outputs-file', output_file_name,
                                     '--output', output_dir or '.',
@@ -66,22 +62,18 @@ def apply_imported_packages(account_id: str, env_id: str, resources: List, on_st
         return output_json_data[env_id]
 
 
-def delete_imported_packages(account_id: str, env_id: str, resources: List, output_dir=None):
+def delete_imported_packages(account_id: str, env_id: str, resources_output_file: str, output_dir=None):
     # remove me    
     _move_to_this_dir()
 
-    cdktf_input = json.dumps({
-            'env_id': env_id,
-            'resources': resources
-        }).replace('\'', '\\\'')
     py_interp = sys.executable
-    app_command = f'{py_interp} main.py \'{cdktf_input}\''
+    app_command = f'{py_interp} main.py {env_id} {resources_output_file}'
     
     output_dir = output_dir or '.'
     
     with tempfile.NamedTemporaryFile() as f:
         my_env = os.environ.copy()
-        process = subprocess.Popen(["cdktf", "destroy", env_id, "--auto-approve", 
+        process = subprocess.Popen([shutil.which("cdktf"), "destroy", env_id, "--auto-approve", 
                                     '--output', output_dir or '.',
                                     "--app", app_command], stdout=subprocess.PIPE, env=my_env)
         for c in iter(lambda: process.stdout.read(1), b''):

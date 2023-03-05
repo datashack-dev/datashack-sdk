@@ -18,13 +18,12 @@ import tempfile
 import shutil
 
 
-def create_app_with_resource(env_data: Dict):
+def create_app_with_resource(env_id: str, resources):
     app = App()
     
-    resources = env_data["resources"]
 
     stack_conf = DatashackStackConf(
-        env=env_data['env_id'],
+        env=env_id,
         resources=resources)
 
     DatashackStack(app, stack_conf)
@@ -39,5 +38,10 @@ def _move_to_this_dir():
 
 
 if __name__ == '__main__':
-    env_data = json.loads(sys.argv[1])
-    create_app_with_resource(env_data)
+    env_id = sys.argv[1]
+    resources_output_file = sys.argv[2]
+    
+    with open(resources_output_file, 'r') as fp:
+        resources = json.load(fp)['resources']
+    
+    create_app_with_resource(env_id, resources)

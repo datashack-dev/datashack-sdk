@@ -58,7 +58,7 @@ def _stack_apply_plan_delete(settings, env, src_folder, action: Action):
         mkdir(output_dir)
         if action == Action.apply:
             outputs = apply_imported_packages(
-                account_id, env, jsonable_encoder(data['resources']), on_stdout_update=None, output_dir=output_dir, plan=True)
+                account_id, env, resources_output_file, on_stdout_update=None, output_dir=output_dir, plan=True)
             
             confirm_question = [inquirer.Confirm('confirm', message="Are you sure you want to proceed?")]
 
@@ -67,16 +67,16 @@ def _stack_apply_plan_delete(settings, env, src_folder, action: Action):
             if answers['confirm']:
                 print("Plan confirmed. Proceeding...")
                 outputs = apply_imported_packages(
-                account_id, env, jsonable_encoder(data['resources']), on_stdout_update=None, output_dir=output_dir, plan=False)
+                account_id, env, resources_output_file, on_stdout_update=None, output_dir=output_dir, plan=False)
             else:
                 print("Apply cancelled.")
                 
         elif action == Action.plan:
             outputs = apply_imported_packages(
-                account_id, env, jsonable_encoder(data['resources']), on_stdout_update=None, output_dir=output_dir, plan=True)
+                account_id, env, resources_output_file, on_stdout_update=None, output_dir=output_dir, plan=True)
         elif action == Action.delete:
             delete_imported_packages(
-                account_id, env, jsonable_encoder(data['resources']), output_dir=output_dir)
+                account_id, env, resources_output_file, output_dir=output_dir)
             rmdir(output_dir)
         console.log('Done')
     except Exception as e:

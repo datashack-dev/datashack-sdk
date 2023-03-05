@@ -50,7 +50,7 @@
             "request": "launch",
             "program": "main.py",
             "justMyCode": true,
-            "args": [],
+            "args": ["test", "/Users/admin/.datashack/test/resources.json"],
             "cwd": "${workspaceFolder}/datashack/datashack_infra_app/",
             "env": {
                 "PYTHONPATH": "${workspaceFolder}/datashack/datashack_infra_app",
