@@ -2,7 +2,8 @@
 
 ## What is this?
 
-> Create AWS Kinesis+Glue pipeline with Datashack SDK.
+> Create AWS Kinesis+Glue pipeline with Python, Javascript, Golang, Java.
+> (currently Python only)
 
 For example:
 
