@@ -81,6 +81,8 @@ def _stack_apply_plan_delete(settings, env, src_folder, action: Action):
         console.log('Done')
     except Exception as e:
         error_console.log(e)
+        console.print_exception(show_locals=True)
+
 
 
 @click.command()

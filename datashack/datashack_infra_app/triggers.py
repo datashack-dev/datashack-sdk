@@ -39,13 +39,15 @@ def apply_imported_packages(account_id: str, env_id: str, resources: List, on_st
     output_dir = output_dir or '.'
     output_file_name = os.path.join(output_dir, 'outputs.json')
 
-    with open("/tmp/test.log", "wb") as f:
+    with tempfile.NamedTemporaryFile() as f:
+        my_env = os.environ.copy()
         process = subprocess.Popen(["cdktf", "plan" if plan else "deploy", env_id, "--auto-approve", 
                                     "--app", app_command,
                                     '--outputs-file', output_file_name,
                                     '--output', output_dir or '.',
                                     "--outputs-file-include-sensitive-output"], 
-                                    stdout=subprocess.PIPE)
+                                    stdout=subprocess.PIPE,
+                                    env=my_env)
         
         acc_stdout = ''
         for ii, c in enumerate(iter(lambda: process.stdout.read(1), b'')):
@@ -77,7 +79,7 @@ def delete_imported_packages(account_id: str, env_id: str, resources: List, outp
     
     output_dir = output_dir or '.'
     
-    with open("/tmp/test.log", "wb") as f:
+    with tempfile.NamedTemporaryFile() as f:
         my_env = os.environ.copy()
         process = subprocess.Popen(["cdktf", "destroy", env_id, "--auto-approve", 
                                     '--output', output_dir or '.',
