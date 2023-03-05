@@ -55,7 +55,7 @@ run in your terminal
 ```
 pip install datashack-sdk --upgrade
 git clone https://github.com/datashack-dev/datashack-sdk-examples
-datashack plan ./datashack-sdk-examples/my_app/models
+datashack plan ./datashack-sdk-examples/py_my_app/models
 ```
 
 

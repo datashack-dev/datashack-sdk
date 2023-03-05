@@ -19,7 +19,10 @@ class Settings:
         self.ds_zone_id = env.get('DATASHACK_ZONE_ID')
 
     def get_os(self)->OS:
-        return OS.from_str(platform.system().lower())
+        try:
+            return OS.from_str(platform.system().lower())
+        except:
+            return OS.ANY
         
 # from https://click.palletsprojects.com/en/8.1.x/complex/
 click_pass_settings = click.make_pass_decorator(Settings, ensure=True)

@@ -8,6 +8,7 @@ class OS(Enum):
     ANY='any'
     OSX='osx'
     LINUX='linux'
+    WINDOWS='windows'
 
     def __str__(self):
         return self.value
