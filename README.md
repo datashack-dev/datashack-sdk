@@ -1,16 +1,23 @@
 # Datashack
 
 ## What is this?
-Create AWS big data streaming pipeline with Datashack sdk. 
+
+> Create AWS Kinesis+Glue pipeline with Datashack SDK.
+
 For example:
+
 ```python
 from datashack_sdk_py import StreamingTable, Column
 
-Users = StreamingTable("users")
+db = Database("db1", "tables-bucket")
 
-Users['id'] = Column('string')
-Users['age'] = Column('int')
-Users['name'] = Column('string')
+UserEvents = StreamingTable("users", "db1")
+
+UserEvents['id'] = Column('string')
+UserEvents['age'] = Column('int')
+UserEvents['name'] = Column('string')
+UserEvents['ts'] = Column('timestamp')
+
 ```
 
 run `datashack plan/apply` to see the actual changes or actually applying them to your AWS account.  

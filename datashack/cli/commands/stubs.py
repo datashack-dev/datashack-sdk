@@ -58,7 +58,19 @@ def _stack_apply_plan_delete(settings, env, src_folder, action: Action):
         mkdir(output_dir)
         if action == Action.apply:
             outputs = apply_imported_packages(
+                account_id, env, jsonable_encoder(data['resources']), on_stdout_update=None, output_dir=output_dir, plan=True)
+            
+            confirm_question = [inquirer.Confirm('confirm', message="Are you sure you want to proceed?")]
+
+            answers = inquirer.prompt(confirm_question)
+
+            if answers['confirm']:
+                print("Plan confirmed. Proceeding...")
+                outputs = apply_imported_packages(
                 account_id, env, jsonable_encoder(data['resources']), on_stdout_update=None, output_dir=output_dir, plan=False)
+            else:
+                print("Apply cancelled.")
+                
         elif action == Action.plan:
             outputs = apply_imported_packages(
                 account_id, env, jsonable_encoder(data['resources']), on_stdout_update=None, output_dir=output_dir, plan=True)
