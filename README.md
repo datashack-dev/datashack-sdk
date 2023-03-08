@@ -5,6 +5,9 @@
 > Create AWS Kinesis+Glue pipeline with Python, Javascript, Golang, Java.
 > (currently Python only)
 
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/gxgG9briNaI/0.jpg)](https://www.youtube.com/watch?v=gxgG9briNaI)
+
+
 For example:
 
 ```python
