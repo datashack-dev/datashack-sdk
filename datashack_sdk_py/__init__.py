@@ -38,7 +38,8 @@ class StreamingTable(DatashackSdk, SchemaEditor):
             no_shards)
 
         self.kinesis_partition_key = kinesis_partition_key
-
+    def get_kinesis_data_stream_name(self):
+        return f"{self._DS_ENV}-{self._resource_config.database_name}_{self._resource_config.table_name}"
     def get_athena_engine(self) -> Sequence:
         rtc = self.get_runtime_context()
 
@@ -55,7 +56,23 @@ class StreamingTable(DatashackSdk, SchemaEditor):
     def get_kinesis_client():
         return boto3.client('kinesis')
 
-    def insert(self, data):
+    def insert_record(self, data: Dict):
+        """
+        Temporary insert for POC purposes until get_runtime_Context() is not implemented
+        @param data: kinesis input data validated against jsonschema of Streaming table object
+        @return:
+        """
+        validated_data = self.validate(data)
+        byte_data = json.dumps(validated_data)
+        pk = k if self.kinesis_partition_key else list(self.columns.keys())[0]
+        response = self.get_kinesis_client().put_record(
+            StreamName=self.get_kinesis_data_stream_name(),
+            Data=byte_data,
+            PartitionKey=pk
+        )
+        return response
+
+    def insert_w_runtime_ctx(self, data):
         rtc = self.get_runtime_context()
         validated_data = self.validate(data)
         byte_data = json.dumps(validated_data)
