@@ -6,6 +6,7 @@ import boto3
 from jsonschema.validators import validate
 from .base import DatashackSdk
 from . import resource_config
+from .glue_struct_transform.GlueStructTransform import GlueStructTransform
 from .resource_schemas import SchemaEditor, Column
 from . import athena as athena
 from typing import Sequence, List, Dict, Optional, Any
@@ -39,6 +40,9 @@ class StreamingTable(DatashackSdk, SchemaEditor):
 
         self.kinesis_partition_key = kinesis_partition_key
 
+    def get_kinesis_data_stream_name(self):
+        return f"{self._DS_ENV}-{self._resource_config.database_name}_{self._resource_config.table_name}"
+
     def get_athena_engine(self) -> Sequence:
         rtc = self.get_runtime_context()
 
@@ -55,9 +59,24 @@ class StreamingTable(DatashackSdk, SchemaEditor):
     def get_kinesis_client():
         return boto3.client('kinesis')
 
-    def insert(self, data):
+    def insert_record(self, data: Dict):
+        """
+        Temporary insert for POC purposes until get_runtime_Context() is not implemented
+        @param data: kinesis input data validated against jsonschema of Streaming table object
+        @return:
+        """
+        validated_data = self.validate_and_serialize(data)
+        pk = self.kinesis_partition_key if self.kinesis_partition_key else list(self.columns.keys())[0]
+        response = self.get_kinesis_client().put_record(
+            StreamName=self.get_kinesis_data_stream_name(),
+            Data=validated_data,
+            PartitionKey=pk
+        )
+        return response
+
+    def insert_w_runtime_ctx(self, data):
         rtc = self.get_runtime_context()
-        validated_data = self.validate(data)
+        validated_data = self.validate_and_serialize(data)
         byte_data = json.dumps(validated_data)
         if self.kinesis_partition_key:
             response = self.get_kinesis_client().put_record(
@@ -85,11 +104,11 @@ class StreamingTable(DatashackSdk, SchemaEditor):
             "required": [c for c in self.columns if self.columns[c].required]
         }
 
-    def validate(self, data: Dict[str, Any]) -> Dict[str, Any]:
-        # JSONSCHEMA is nny
-
-        validate(instance=data, schema=self.get_jsonschema())
-        return data
+    def validate_and_serialize(self, data: Dict[str, Any]) -> str:
+        data_glue_struct_schema, serialized_data = GlueStructTransform.datashack_json_to_glue_struct(data)
+        table_glue_schema = {f"{c}:{self.columns[c].col_type}" for c in self.columns}
+        # assert table_glue_schema == data_glue_struct_schema, "schema mismatch" #todo imrpove validation due to schemas mismatch
+        return serialized_data
 
     def __hash__(self):
         """

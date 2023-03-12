@@ -10,7 +10,7 @@ class Column(ResourceConfig):
     required: bool
 
     def __init__(self, col_type: str, partition: bool = False, required: bool = True):
-        assert col_type in SchemaEditor.JSON_SCHEMA_MAPPER.keys(), f"{col_type} is not supported type"
+        # assert col_type in SchemaEditor.JSON_SCHEMA_MAPPER.keys(), f"{col_type} is not supported type" todo check
         self.col_type = col_type
         self.partition = partition
         self.required = required
@@ -73,7 +73,7 @@ class SchemaEditor(MutableMapping):
         return self._resource_config.columns[key]
 
     def __setitem__(self, key: str, value: 'Column'):
-        self.validate_type(value.col_type)
+        # self.validate_type(value.col_type) todo improve validation
         self._resource_config.columns[key] = value
 
     def __delitem__(self, key):

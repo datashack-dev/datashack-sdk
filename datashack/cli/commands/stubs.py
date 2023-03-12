@@ -15,12 +15,12 @@ from fastapi.encoders import jsonable_encoder
 
 
 class Action(Enum):
-    plan='plan'
-    apply='apply'
-    delete='delete'
+    plan = 'plan'
+    apply = 'apply'
+    delete = 'delete'
 
 
-def _stack_apply_plan_delete(settings, env, src_folder, action: Action):
+def _stack_apply_plan_delete(settings, env, src_folder, action: Action, auto_approve: bool = False):
     os.environ["DATASHACK_ENV"] = env
 
     console.log(f'Reading models from {src_folder}')
@@ -36,41 +36,41 @@ def _stack_apply_plan_delete(settings, env, src_folder, action: Action):
     resources_output_file = os.path.join(env_output_dir, 'resources.json')
 
     data = {
-            'resources': [
-                {
-                    'resource_type': rc.resource_type,
-                    'resource_json': rc.resource_json
-                }
-                for rc in resource_configs
-            ]
-        }
+        'resources': [
+            {
+                'resource_type': rc.resource_type,
+                'resource_json': rc.resource_json
+            }
+            for rc in resource_configs
+        ]
+    }
     with open(resources_output_file, 'w') as fp:
         json.dump(data, fp, indent=2)
-
 
     for rc in resource_configs:
         console.log(f' - {rc.resource_type}')
 
-    
     try:
         account_id = '1'
         output_dir = os.path.join(env_output_dir, 'tf')
         mkdir(output_dir)
         if action == Action.apply:
-            outputs = apply_imported_packages(
-                account_id, env, resources_output_file, on_stdout_update=None, output_dir=output_dir, plan=True)
-            
-            confirm_question = [inquirer.Confirm('confirm', message="Are you sure you want to proceed?")]
+            answers = None
+            if not auto_approve:
+                outputs = apply_imported_packages(
+                    account_id, env, resources_output_file, on_stdout_update=None, output_dir=output_dir, plan=True)
 
-            answers = inquirer.prompt(confirm_question)
+                confirm_question = [inquirer.Confirm('confirm', message="Are you sure you want to proceed?")]
 
-            if answers['confirm']:
+                answers = inquirer.prompt(confirm_question)
+
+            if auto_approve or answers['confirm']:
                 print("Plan confirmed. Proceeding...")
                 outputs = apply_imported_packages(
-                account_id, env, resources_output_file, on_stdout_update=None, output_dir=output_dir, plan=False)
+                    account_id, env, resources_output_file, on_stdout_update=None, output_dir=output_dir, plan=False)
             else:
                 print("Apply cancelled.")
-                
+
         elif action == Action.plan:
             outputs = apply_imported_packages(
                 account_id, env, resources_output_file, on_stdout_update=None, output_dir=output_dir, plan=True)
@@ -84,7 +84,6 @@ def _stack_apply_plan_delete(settings, env, src_folder, action: Action):
         console.print_exception(show_locals=True)
 
 
-
 @click.command()
 @click.argument('src_folder')
 @click.option('--env', default='dev')
@@ -95,16 +94,18 @@ def plan(settings, src_folder: str, env: str):
     """
     _stack_apply_plan_delete(settings, env, src_folder, action=Action.plan)
 
+
 @click.command()
 @click.argument('src_folder')
 @click.option('--env', default='dev')
+@click.option('--auto-approve', '-av', is_flag=True, help="Auto approve plan")
 @click_pass_settings
-def apply(settings, src_folder: str, env: str):
+def apply(settings, src_folder: str, env: str, auto_approve: bool):
     """
     create real infrastructure from your code
     """
-    _stack_apply_plan_delete(settings, env, src_folder, action=Action.apply)
-    
+    _stack_apply_plan_delete(settings, env, src_folder, action=Action.apply, auto_approve=auto_approve)
+
 
 @click.command()
 @click.argument('src_folder')

@@ -11,7 +11,7 @@
 For example:
 
 ```python
-from datashack_sdk_py import StreamingTable, Column
+from datashack_sdk_py import StreamingTable, Column, Database
 
 db = Database("db1", "tables-bucket")
 
